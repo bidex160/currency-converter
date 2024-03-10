@@ -1,0 +1,38 @@
+
+<ng-container [formGroup]="form">
+    <label>{{label}} </label>
+
+@switch (type) {
+    @case ('autocomplete') { 
+        <div class="input">
+            <input type="text"
+                   placeholder="{{placeholder}}"
+                   matInput
+                   (change)="inputChange($event)"
+                   [formControlName]="name"
+                   [matAutocomplete]="auto">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="inputChange($event)">
+              @for (option of __option; track option) {
+                <mat-option [value]="option.value">{{option.label}}</mat-option>
+              }
+            </mat-autocomplete>
+        </div>
+     }
+    @default { 
+        <div>
+        <input
+          [type]="type"
+          [placeholder]="placeholder"
+          [formControlName]="name"
+          [min]="min"
+          (change)="inputChange($event)"
+        />
+      </div>
+     }
+  }
+
+
+
+
+
+</ng-container>
