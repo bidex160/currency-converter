@@ -42,6 +42,12 @@ export class HomeComponent {
   }
 
 
+    /**
+   * funtion to listen to currency input chnaged for both currency input
+   * @param event value from input component
+   * @param isBase is base input field, use to different currency field
+   * update conversion amount input value
+   */
   currencyChanged(event: any, isBase: boolean = false){
     if(isBase){
       this.rates = []
@@ -54,6 +60,12 @@ export class HomeComponent {
     }
   }
 
+  /**
+   * funtion to listen to amount input chnaged for both amount input
+   * @param event value from input component
+   * @param isBase is base input ammount, use to different amount field
+   * update baseAmount or conversion amount input value
+   */
   amountChanged(event: any, isBase: boolean = false){
     if(isBase){
       let currencyRate =  this.rates.find((curr)=>curr.label?.toLowerCase() == this.form.value.toCurrency?.toLowerCase())?.value as number || 1 
@@ -67,7 +79,11 @@ export class HomeComponent {
 
   }
 
-
+ 
+  /**
+   * call getRate in currency service to update rate 
+   * @param date date
+   */
   dateChanged(date: any){
    if(this.form.value.baseCurrency) this.curServ.getRate(this.form.value.baseCurrency,date)
   }
