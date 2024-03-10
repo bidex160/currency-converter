@@ -76,7 +76,7 @@ export class InputComponent {
  */
   filter(): void {
     const filterValue = this.form.value[this.name]?.toLowerCase();
-    this.filteredOptions = this.__option.filter(o => o.value.toLowerCase().includes(filterValue));
+  if(filterValue) this.filteredOptions = this.__option.filter(o => o.value.toLowerCase().includes(filterValue));
   }
 
 }
