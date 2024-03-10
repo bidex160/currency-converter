@@ -9,10 +9,13 @@
                    placeholder="{{placeholder}}"
                    matInput
                    (change)="inputChange($event)"
+                   (input)="filter()"
+                   (focus)="filter()"
+                   [ngStyle]="{'text-transform': 'uppercase'}"
                    [formControlName]="name"
                    [matAutocomplete]="auto">
             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="inputChange($event)">
-              @for (option of __option; track option) {
+              @for (option of filteredOptions; track option) {
                 <mat-option [value]="option.value">{{option.label}}</mat-option>
               }
             </mat-autocomplete>

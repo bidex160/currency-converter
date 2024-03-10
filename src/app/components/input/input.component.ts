@@ -12,14 +12,16 @@ export class InputComponent {
   @Input() type: InputType;
   @Input() name: string;
   @Input() label: string;
-  @Input() placeholder: string;
+  @Input() placeholder: string = '';
   @Input() form: FormGroup;
   @Input() min: number;
   @Input() valueField: string;
   @Input() labelField: string;
   __option: any[] = [];
+  filteredOptions: any[] = [];
   @Input('options') set _option(v: any[]) {
     this.__option = this.formatOption(v);
+    this.filteredOptions = this.__option
   }
 
   @Output() mchange: EventEmitter<any> = new EventEmitter();
@@ -63,10 +65,18 @@ export class InputComponent {
    */
   inputChange(event: any) {
     if (this.type == 'autocomplete') {
-      if (event.option.value) this.mchange.emit(event.option.value);
+      if (event.option?.value) this.mchange.emit(event.option.value);
       return;
     }
    this.mchange.emit(event.target.value);
+  }
+
+/**
+ * filter autocomplete field
+ */
+  filter(): void {
+    const filterValue = this.form.value[this.name]?.toLowerCase();
+    this.filteredOptions = this.__option.filter(o => o.value.toLowerCase().includes(filterValue));
   }
 
 }
